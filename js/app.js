@@ -292,9 +292,23 @@ document.addEventListener("DOMContentLoaded", function () {
       indigo: "border-indigo-200 dark:border-indigo-900/40 bg-indigo-50/30 dark:bg-indigo-950/20"
     }[color];
 
+    const totalPortions = (state.preferences.familyMembers && state.preferences.familyMembers.length > 0)
+      ? state.preferences.familyMembers.reduce((sum, member) => sum + (parseFloat(member.portion_factor) || 1.0), 0)
+      : 1.0;
+
     const tagsHtml = (meal.tags || []).map(t => `<span class="px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-semibold text-slate-600 dark:text-slate-300">${t}</span>`).join(" ");
 
-    const ingredientsHtml = (meal.ingredients || []).map(i => `<li class="text-xs text-slate-600 dark:text-slate-400">• ${i.name}</li>`).join("");
+    const ingredientsHtml = (meal.ingredients || []).map(i => {
+      const baseQty = i.base_qty_g || 50;
+      const scaledQty = Math.round(baseQty * totalPortions);
+      const qtyDisplay = scaledQty >= 1000 ? `${(scaledQty / 1000).toFixed(2)} kg` : `${scaledQty} gm`;
+      return `
+        <li class="text-xs text-slate-700 dark:text-slate-300 flex items-center justify-between p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+          <span class="font-medium">• ${i.name}</span>
+          <span class="font-bold text-amber-600 dark:text-amber-400 text-[11px] bg-amber-50 dark:bg-amber-950/80 px-2 py-0.5 rounded-md border border-amber-200/80 dark:border-amber-800/80 ml-2 whitespace-nowrap">${qtyDisplay}</span>
+        </li>
+      `;
+    }).join("");
 
     const instructionsHtml = (meal.instructions || []).map((step, idx) => `<p class="text-xs text-slate-600 dark:text-slate-400 mb-1"><strong class="text-slate-800 dark:text-slate-200">${idx + 1}.</strong> ${step}</p>`).join("");
 
@@ -335,13 +349,16 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="space-y-2">
           <details class="group">
             <summary class="text-xs font-semibold text-amber-600 dark:text-amber-400 cursor-pointer flex items-center justify-between">
-              <span>View Ingredients & Recipe Steps</span>
+              <span>View Ingredients (gm) & Recipe Steps</span>
               <span class="transition group-open:rotate-180">▼</span>
             </summary>
             <div class="pt-3 space-y-3">
               <div>
-                <div class="text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Ingredients:</div>
-                <ul class="grid grid-cols-2 gap-1">${ingredientsHtml}</ul>
+                <div class="text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
+                  <span>Ingredients Required:</span>
+                  <span class="text-[10px] font-semibold text-amber-600 dark:text-amber-400">Scaled for ${totalPortions.toFixed(1)}x Household</span>
+                </div>
+                <ul class="grid grid-cols-1 gap-1.5">${ingredientsHtml}</ul>
               </div>
               <div>
                 <div class="text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Preparation:</div>

@@ -57,6 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
     setupEventListeners();
     renderFamilyMembers();
     generatePlanAndRefresh();
+
+    // Register global event handler for AI Agent actions
+    window.KhanaAppEvents = {
+      onCuisineChange: function(newState) {
+        state.preferences.state = newState;
+        if (stateSelect) stateSelect.value = newState;
+        generatePlanAndRefresh();
+      }
+    };
   }
 
   function setupEventListeners() {

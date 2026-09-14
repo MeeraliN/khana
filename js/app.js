@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
     mealPlan: [],
     selectedDay: 1,
     todayDay: 1, // Start / Today day marker
-    groceryScope: "frequency_trip", // 'selected_day', 'frequency_trip', 'monthly_total'
+    groceryStartDay: 1,
+    groceryDaysCount: 7,
     activeTab: "planner"
   };
 
@@ -479,30 +480,69 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderGroceryList() {
     if (!groceryContainer) return;
 
-    const activeScope = state.groceryScope || "frequency_trip";
+    const startDay = state.groceryStartDay || state.selectedDay || 1;
+    const daysCount = state.groceryDaysCount || 7;
 
     const data = window.KhanaGrocery.generateGroceryList(
       state.mealPlan,
       state.preferences.familyMembers,
       state.preferences.marketingFrequency,
-      { startDay: state.selectedDay, scope: activeScope }
+      { startDay: startDay, customDaysCount: daysCount }
     );
 
+    // Build Start Day select options
+    let startDayOpts = "";
+    for (let d = 1; d <= 30; d++) {
+      const isToday = d === state.todayDay;
+      const label = `Day ${d}${isToday ? ' (Today)' : ''}`;
+      startDayOpts += `<option value="${d}" ${d === startDay ? 'selected' : ''}>${label}</option>`;
+    }
+
     let html = `
-      <!-- Scope Selector Control Bar -->
-      <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-extrabold text-slate-800 dark:text-slate-200">🛒 Market Scope Starting from Day ${state.selectedDay}:</span>
+      <!-- Scope & Custom Days Control Bar -->
+      <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700/60 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold text-slate-800 dark:text-slate-200">🛒 Customize Market Shopping Plan:</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-xs">
+            <!-- Start Day Selector -->
+            <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+              <label class="font-bold text-slate-500">Start Day:</label>
+              <select id="grocery-start-day" class="font-bold text-amber-600 dark:text-amber-400 bg-transparent focus:outline-none cursor-pointer">
+                ${startDayOpts}
+              </select>
+            </div>
+
+            <!-- Number of Days Selector -->
+            <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+              <label class="font-bold text-slate-500">Shopping For:</label>
+              <select id="grocery-days-count" class="font-bold text-amber-600 dark:text-amber-400 bg-transparent focus:outline-none cursor-pointer">
+                <option value="1" ${daysCount === 1 ? 'selected' : ''}>1 Day Only</option>
+                <option value="2" ${daysCount === 2 ? 'selected' : ''}>2 Days (Start Day + 1 Day)</option>
+                <option value="3" ${daysCount === 3 ? 'selected' : ''}>3 Days (Start Day + 2 Days)</option>
+                <option value="7" ${daysCount === 7 ? 'selected' : ''}>1 Week (7 Days)</option>
+                <option value="14" ${daysCount === 14 ? 'selected' : ''}>2 Weeks (14 Days)</option>
+                <option value="30" ${daysCount === 30 ? 'selected' : ''}>Full 30 Days Total</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div class="flex flex-wrap items-center gap-2">
-          <button class="btn-scope px-3 py-1.5 rounded-xl font-bold text-xs transition ${activeScope === 'selected_day' ? 'bg-amber-500 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}" data-scope="selected_day">
-            1️⃣ Single Day (Day ${state.selectedDay} Only)
+
+        <!-- Quick Presets Bar -->
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <span class="text-slate-500 font-bold">Quick Presets:</span>
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${state.todayDay}" data-days="1">
+            ☀️ Today (Day ${state.todayDay})
           </button>
-          <button class="btn-scope px-3 py-1.5 rounded-xl font-bold text-xs transition ${activeScope === 'frequency_trip' ? 'bg-amber-500 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}" data-scope="frequency_trip">
-            🗓️ Market Trip (${state.preferences.marketingFrequency.replace('_', ' ')})
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${(state.todayDay % 30) + 1}" data-days="1">
+            🌅 Tomorrow (Day ${(state.todayDay % 30) + 1})
           </button>
-          <button class="btn-scope px-3 py-1.5 rounded-xl font-bold text-xs transition ${activeScope === 'monthly_total' ? 'bg-amber-500 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}" data-scope="monthly_total">
-            📦 Full 30-Day Pantry Total
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${(state.todayDay % 30) + 1}" data-days="3">
+            🗓️ Tomorrow + 2 More Days (3 Days)
+          </button>
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${state.todayDay}" data-days="7">
+            🛒 Full Week (7 Days)
           </button>
         </div>
       </div>
@@ -520,7 +560,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
           </div>
         </div>
-        <button id="btn-print-grocery" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md transition">
+        <button id="btn-print-grocery" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md transition cursor-pointer">
           🖨️ Print Checklist
         </button>
       </div>
@@ -553,10 +593,22 @@ document.addEventListener("DOMContentLoaded", function () {
     html += `</div>`;
     groceryContainer.innerHTML = html;
 
-    // Attach event listeners for scope buttons
-    document.querySelectorAll(".btn-scope").forEach(btn => {
+    // Attach event listeners for start day & duration selectors
+    document.getElementById("grocery-start-day")?.addEventListener("change", (e) => {
+      state.groceryStartDay = parseInt(e.target.value);
+      renderGroceryList();
+    });
+
+    document.getElementById("grocery-days-count")?.addEventListener("change", (e) => {
+      state.groceryDaysCount = parseInt(e.target.value);
+      renderGroceryList();
+    });
+
+    // Attach preset buttons
+    document.querySelectorAll(".btn-preset").forEach(btn => {
       btn.addEventListener("click", () => {
-        state.groceryScope = btn.getAttribute("data-scope");
+        state.groceryStartDay = parseInt(btn.getAttribute("data-start"));
+        state.groceryDaysCount = parseInt(btn.getAttribute("data-days"));
         renderGroceryList();
       });
     });

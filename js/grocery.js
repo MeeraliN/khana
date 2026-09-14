@@ -94,37 +94,36 @@ window.KhanaGrocery = {
    * @param {Array} mealPlan - 30 days of meals
    * @param {Array} familyMembers - List of family members
    * @param {string} frequency - 'daily', 'twice_weekly', 'weekly', 'biweekly'
-   * @param {Object} options - { startDay: number, scope: 'selected_day' | 'frequency_trip' | 'monthly_total' }
+   * @param {Object} options - { startDay: number, customDaysCount: number, scope: string }
    */
   generateGroceryList: function(mealPlan, familyMembers, frequency, options = {}) {
     const totalPortions = (familyMembers && familyMembers.length > 0)
       ? familyMembers.reduce((sum, member) => sum + (parseFloat(member.portion_factor) || 1.0), 0)
       : 1.0;
 
-    const startDay = Math.max(1, Math.min(30, options.startDay || 1));
-    const scope = options.scope || "frequency_trip"; // 'selected_day', 'frequency_trip', 'monthly_total'
-
-    const frequencyDays = {
-      "daily": 1,
-      "twice_weekly": 3,
-      "weekly": 7,
-      "biweekly": 14,
-      "monthly": 30
-    }[frequency] || 7;
+    const startDay = Math.max(1, Math.min(30, parseInt(options.startDay) || 1));
+    const customDays = parseInt(options.customDaysCount);
 
     let daysToCover = 7;
+    if (!isNaN(customDays) && customDays > 0) {
+      daysToCover = Math.min(30, customDays);
+    } else if (options.scope === "selected_day") {
+      daysToCover = 1;
+    } else if (options.scope === "monthly_total") {
+      daysToCover = 30;
+    } else {
+      const frequencyDays = { "daily": 1, "twice_weekly": 3, "weekly": 7, "biweekly": 14, "monthly": 30 }[frequency] || 7;
+      daysToCover = Math.min(30, frequencyDays);
+    }
+
+    const endDay = Math.min(30, startDay + daysToCover - 1);
     let frequencyLabel = "";
 
-    if (scope === "selected_day") {
-      daysToCover = 1;
-      frequencyLabel = `Single Day Market Needs (Day ${startDay})`;
-    } else if (scope === "monthly_total") {
-      daysToCover = 30;
-      frequencyLabel = `Full 30-Day Complete Pantry Total (90 Meals)`;
-    } else { // 'frequency_trip'
-      daysToCover = Math.min(30, frequencyDays);
-      const endDay = Math.min(30, startDay + daysToCover - 1);
-      frequencyLabel = `${this.getFrequencyLabel(frequency)} (Day ${startDay} to Day ${endDay})`;
+    if (daysToCover === 1) {
+      const dayName = startDay === 1 ? "Today (Day 1)" : startDay === 2 ? "Tomorrow (Day 2)" : `Day ${startDay}`;
+      frequencyLabel = `1 Day Market List for ${dayName}`;
+    } else {
+      frequencyLabel = `Market List for ${daysToCover} Days (Day ${startDay} to Day ${endDay})`;
     }
 
     const rawAggregated = {};

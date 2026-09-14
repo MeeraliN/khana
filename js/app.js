@@ -57,12 +57,32 @@ document.addEventListener("DOMContentLoaded", function () {
     renderFamilyMembers();
     generatePlanAndRefresh();
 
-    // Register global event handler for AI Agent actions
+    // Register global event handlers for AI Agent live interactions
     window.KhanaAppEvents = {
       onCuisineChange: function(newState) {
         state.preferences.state = newState;
         if (stateSelect) stateSelect.value = newState;
         generatePlanAndRefresh();
+        if (state.activeTab === "grocery") renderGroceryList();
+      },
+      onDietChange: function(newDiet) {
+        state.preferences.dietType = newDiet;
+        if (dietSelect) dietSelect.value = newDiet;
+        updateDietWarningBanner(newDiet);
+        generatePlanAndRefresh();
+        if (state.activeTab === "grocery") renderGroceryList();
+      },
+      onFrequencyChange: function(newFreq) {
+        state.preferences.marketingFrequency = newFreq;
+        if (freqSelect) freqSelect.value = newFreq;
+        if (state.activeTab === "grocery") renderGroceryList();
+      },
+      onMealSwap: function(dayNum, mealType, newMealName) {
+        const dayIdx = (dayNum || state.selectedDay) - 1;
+        if (state.mealPlan[dayIdx] && state.mealPlan[dayIdx].meals[mealType]) {
+          state.mealPlan[dayIdx].meals[mealType].name = newMealName;
+          renderDayMeals(state.selectedDay);
+        }
       }
     };
   }
@@ -390,34 +410,44 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     let html = `
-      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h3 class="font-bold text-slate-900 dark:text-slate-100 text-base">${data.frequencyLabel}</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-400">Scaled for <strong>${data.householdPortions}x portions</strong> (${state.preferences.familyMembers.length} family members) across ${data.shoppingDaysCovered} days.</p>
+      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg">
+            🛒
+          </div>
+          <div>
+            <h3 class="font-extrabold text-slate-900 dark:text-slate-100 text-sm">${data.frequencyLabel}</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+              Scaled for <strong>${data.householdPortions}x portions</strong> (${state.preferences.familyMembers.length} family members) • ${data.shoppingDaysCovered} days
+            </p>
+          </div>
         </div>
-        <button id="btn-print-grocery" class="px-4 py-2 rounded-xl bg-amber-500 text-white font-semibold text-xs shadow hover:bg-amber-600 transition">
-          🖨️ Print / Export List
+        <button id="btn-print-grocery" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md transition">
+          🖨️ Print Checklist
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
     `;
 
     Object.entries(data.categories).forEach(([category, items]) => {
       const itemsList = items.map(item => `
-        <li class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-xs">
-          <span class="font-medium text-slate-800 dark:text-slate-200">${item.name}</span>
-          <span class="font-bold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-xs">${item.formattedQty}</span>
-        </li>
+        <label class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-200/50 dark:border-slate-700/50 text-xs transition cursor-pointer">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded text-amber-500 focus:ring-amber-400 cursor-pointer" />
+            <span class="font-medium text-slate-800 dark:text-slate-200 text-[11px]">${item.name}</span>
+          </div>
+          <span class="font-extrabold text-[11px] px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 ml-2 whitespace-nowrap">${item.formattedQty}</span>
+        </label>
       `).join("");
 
       html += `
-        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
-            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">${category}</h4>
-            <span class="text-[10px] font-semibold text-slate-400">${items.length} items</span>
+        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-2">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-1.5">
+            <h4 class="font-bold text-slate-800 dark:text-slate-200 text-xs tracking-tight">${category}</h4>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">${items.length} items</span>
           </div>
-          <ul class="space-y-1.5">${itemsList}</ul>
+          <div class="space-y-1.5">${itemsList}</div>
         </div>
       `;
     });

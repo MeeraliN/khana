@@ -1,0 +1,22 @@
+{
+  "agentName": "KhanaMealPlannerAgent",
+  "version": "1.0.0",
+  "runtime": "bedrock-agentcore",
+  "sdk": "strands-agents",
+  "modelId": "us.amazon.nova-pro-v1:0",
+  "region": "us-east-1",
+  "tools": [
+    {
+      "name": "usda_nutrition_analyzer_tool",
+      "description": "Queries USDA FoodData Central REST API for nutrients."
+    },
+    {
+      "name": "grocery_market_scaler_tool",
+      "description": "Scales recipe ingredients by family size into kg and gm."
+    },
+    {
+      "name": "strict_diet_guardrail_tool",
+      "description": "Enforces strict dietary guardrails for Veg and Vegan diets."
+    }
+  ]
+}

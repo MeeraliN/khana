@@ -48,3 +48,34 @@ body {
     background: #334155;
   }
 }
+
+/* Print Only Grocery Checklist Styling */
+@media print {
+  /* Hide all non-grocery UI elements */
+  header, footer, nav, .hero-banner, #settings-modal, #tab-planner, #tab-nutrition, #tab-agent, .btn-scope, #btn-print-grocery, .no-print {
+    display: none !important;
+  }
+
+  body, main, #tab-grocery, #grocery-container {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Make grocery cards clean and printable */
+  #grocery-container {
+    display: block !important;
+  }
+
+  #grocery-container input[type="checkbox"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .glass-card, div {
+    box-shadow: none !important;
+    border-color: #e2e8f0 !important;
+  }
+}

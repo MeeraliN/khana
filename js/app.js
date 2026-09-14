@@ -35,6 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const familyList = document.getElementById("family-list");
   const portionTotalBadge = document.getElementById("portion-total-badge");
 
+  // Settings Modal Elements
+  const settingsModal = document.getElementById("settings-modal");
+  const btnToggleSettings = document.getElementById("btn-toggle-settings");
+  const btnOpenSettingsHero = document.getElementById("btn-open-settings-hero");
+  const btnCloseSettings = document.getElementById("btn-close-settings");
+
   // Nav Tabs
   const navTabs = document.querySelectorAll(".nav-tab");
   const tabPanels = document.querySelectorAll(".tab-content");
@@ -98,6 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+    // Settings Modal Open / Close
+    btnToggleSettings?.addEventListener("click", () => openSettingsModal());
+    btnOpenSettingsHero?.addEventListener("click", () => openSettingsModal());
+    btnCloseSettings?.addEventListener("click", () => closeSettingsModal());
+
     // Country/State Selection Handler
     countrySelect?.addEventListener("change", (e) => {
       state.preferences.country = e.target.value;
@@ -128,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btnGenerate?.addEventListener("click", () => {
       readFormValues();
       generatePlanAndRefresh();
+      closeSettingsModal();
     });
 
     btnAddMember?.addEventListener("click", () => {
@@ -273,11 +285,41 @@ document.addEventListener("DOMContentLoaded", function () {
     renderFamilyMembers();
   }
 
+  function openSettingsModal() {
+    settingsModal?.classList.remove("hidden");
+  }
+
+  function closeSettingsModal() {
+    settingsModal?.classList.add("hidden");
+  }
+
+  function updateSettingsSummaryBar() {
+    const loc = document.getElementById("summary-location");
+    const diet = document.getElementById("summary-diet");
+    const family = document.getElementById("summary-family");
+    const freq = document.getElementById("summary-freq");
+
+    if (loc) loc.textContent = `📍 ${state.preferences.state}, ${state.preferences.country}`;
+    if (diet) {
+      const dietMap = { veg: "🟢 Vegetarian", vegan: "🥬 Vegan", "non-veg": "🔴 Non-Vegetarian" };
+      diet.textContent = dietMap[state.preferences.dietType] || "🟢 Vegetarian";
+    }
+    if (family) {
+      const totalPortion = state.preferences.familyMembers.reduce((sum, m) => sum + (parseFloat(m.portion_factor) || 1.0), 0);
+      family.textContent = `👨‍👩‍👧 ${totalPortion.toFixed(1)}x Scale (${state.preferences.familyMembers.length} Members)`;
+    }
+    if (freq) {
+      const freqMap = { daily: "Daily Trips", twice_weekly: "2-3x / Week", weekly: "Weekly Trip", biweekly: "Bi-Weekly Bulk" };
+      freq.textContent = `🛒 ${freqMap[state.preferences.marketingFrequency] || "Weekly Trip"}`;
+    }
+  }
+
   // Plan Generation
   function generatePlanAndRefresh() {
     state.mealPlan = window.KhanaPlanner.generate30DayPlan(state.preferences);
     render30DaySelector();
     renderDayMeals(state.selectedDay);
+    updateSettingsSummaryBar();
   }
 
   // Render 30-Day Grid Bar

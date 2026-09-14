@@ -159,6 +159,265 @@ window.KhanaData = {
           instructions: ["Boil soaked whole green moong until tender.", "Prepare gravy with oil, mustard seeds, ginger, garlic, chili, and jaggery.", "Add moong, squeeze fresh lemon juice, simmer 10 mins.", "Serve hot with soft phulkas."]
         }
       ]
+    },
+    "Punjab": {
+      "breakfast": [
+        {
+          name: "Punjabi Stuffed Aloo Methi Paratha with Fresh Curd",
+          prepTime: "20 mins", cookTime: "15 mins", calories: 420, protein: 11, carbs: 62, fat: 12, calcium: 120, iron: 3.5, vitaminC: 18,
+          tags: ["Butter Roasted", "Hearty Breakfast", "Punjabi Classic"],
+          ingredients: [
+            { name: "Whole Wheat Flour", base_qty_g: 80, category: "Grains", shelf_life: 90 },
+            { name: "Boiled Potatoes", base_qty_g: 70, category: "Vegetables", shelf_life: 21 },
+            { name: "Fresh Fenugreek (Methi)", base_qty_g: 30, category: "Fresh Greens", shelf_life: 3 },
+            { name: "Fresh Curd / Yogurt", base_qty_g: 100, category: "Dairy", shelf_life: 7 },
+            { name: "Butter / Ghee", base_qty_g: 10, category: "Dairy", shelf_life: 60 }
+          ],
+          instructions: ["Knead wheat dough.", "Boil and mash potatoes with chopped methi, cumin, chili powder, and salt.", "Stuff dough, roll into parathas, and roast on tawa with butter.", "Serve hot with cold curd."]
+        },
+        {
+          name: "Amritsari Kulcha with Chole & Chutney",
+          prepTime: "20 mins", cookTime: "20 mins", calories: 480, protein: 16, carbs: 74, fat: 14, calcium: 110, iron: 4.2, vitaminC: 22,
+          tags: ["Crispy Stuffed", "Tangy Chole", "Street Style"],
+          ingredients: [
+            { name: "Refined/Wheat Flour Batter", base_qty_g: 80, category: "Grains", shelf_life: 90 },
+            { name: "Kabuli Chana (Chickpeas)", base_qty_g: 60, category: "Pulses", shelf_life: 180 },
+            { name: "Potatoes & Onions", base_qty_g: 50, category: "Vegetables", shelf_life: 14 }
+          ],
+          instructions: ["Prepare spiced potato-onion stuffing.", "Roll dough, stuff and bake on tawa till crispy.", "Serve hot with spicy-tangy Amritsari chole."]
+        }
+      ],
+      "lunch": [
+        {
+          name: "Punjabi Dal Makhani, Jeera Rice & Butter Naan",
+          prepTime: "20 mins", cookTime: "35 mins", calories: 610, protein: 22, carbs: 82, fat: 18, calcium: 150, iron: 5.5, vitaminC: 15,
+          tags: ["Creamy Black Urad", "Slow Cooked", "Rich Protein"],
+          ingredients: [
+            { name: "Whole Black Urad & Rajma", base_qty_g: 70, category: "Pulses", shelf_life: 180 },
+            { name: "Basmati Rice", base_qty_g: 75, category: "Grains", shelf_life: 180 },
+            { name: "Fresh Cream & Butter", base_qty_g: 20, category: "Dairy", shelf_life: 10 }
+          ],
+          instructions: ["Soak black urad and rajma overnight, pressure cook till soft.", "Simmer with tomato puree, ginger-garlic paste, and spices for 30 mins.", "Finish with fresh cream and butter. Serve with jeera rice and warm butter naan."]
+        },
+        {
+          name: "Punjabi Chole Bhature with Sweet Lassi",
+          prepTime: "20 mins", cookTime: "25 mins", calories: 630, protein: 20, carbs: 88, fat: 22, calcium: 130, iron: 5.8, vitaminC: 20,
+          tags: ["Festive Feast", "Puffed Bhature", "Classic Comfort"],
+          ingredients: [
+            { name: "Chickpeas (Kabuli Chana)", base_qty_g: 75, category: "Pulses", shelf_life: 180 },
+            { name: "Flour (for Bhature)", base_qty_g: 80, category: "Grains", shelf_life: 90 },
+            { name: "Thick Curd (for Lassi)", base_qty_g: 100, category: "Dairy", shelf_life: 7 }
+          ],
+          instructions: ["Cook chickpeas with tea-infused whole spices for dark color.", "Sauté onion-tomato masala and simmer chole.", "Deep fry kneaded dough into puffed bhaturas.", "Serve hot with chilled sweet lassi."]
+        }
+      ],
+      "dinner": [
+        {
+          name: "Paneer Tikka Masala, Tandoori Roti & Salad",
+          prepTime: "20 mins", cookTime: "25 mins", calories: 580, protein: 25, carbs: 65, fat: 22, calcium: 310, iron: 3.9, vitaminC: 20,
+          tags: ["High Calcium", "Grilled Cottage Cheese", "Delicious"],
+          ingredients: [
+            { name: "Fresh Cottage Cheese (Paneer)", base_qty_g: 100, category: "Dairy", shelf_life: 7 },
+            { name: "Whole Wheat Dough (for Roti)", base_qty_g: 60, category: "Grains", shelf_life: 90 },
+            { name: "Onion Tomato Gravy Base", base_qty_g: 80, category: "Fresh Produce", shelf_life: 7 }
+          ],
+          instructions: ["Marinate paneer cubes in spiced curd and grill.", "Simmer paneer in rich onion-tomato gravy.", "Serve hot with tandoori wheat roti."]
+        }
+      ]
+    },
+    "South India": {
+      "breakfast": [
+        {
+          name: "South Indian Steamed Idli, Sambar & Coconut Chutney",
+          prepTime: "10 mins", cookTime: "15 mins", calories: 310, protein: 9, carbs: 58, fat: 5, calcium: 55, iron: 2.1, vitaminC: 8,
+          tags: ["Gut Friendly", "Fermented Probiotic", "South Indian Icon"],
+          ingredients: [
+            { name: "Rice & Urad Dal Batter", base_qty_g: 180, category: "Batter", shelf_life: 4 },
+            { name: "Grated Coconut", base_qty_g: 30, category: "Produce", shelf_life: 3 },
+            { name: "Roasted Chana Dal", base_qty_g: 15, category: "Pulses", shelf_life: 90 },
+            { name: "Tempering Spices (Mustard, Curry Leaves)", base_qty_g: 5, category: "Spices", shelf_life: 30 }
+          ],
+          instructions: ["Pour batter into idli molds and steam for 10-12 minutes.", "Grind grated coconut, roasted chana dal, green chili, and salt with water.", "Temper chutney with mustard seeds and curry leaves in oil.", "Serve soft idlis hot with vegetable sambar."]
+        },
+        {
+          name: "Crispy South Indian Paper Masala Dosa & Sambar",
+          prepTime: "15 mins", cookTime: "15 mins", calories: 380, protein: 10, carbs: 64, fat: 9, calcium: 65, iron: 2.8, vitaminC: 15,
+          tags: ["Crispy Crepe", "Spiced Potato Filling", "Delicious"],
+          ingredients: [
+            { name: "Fermented Dosa Batter", base_qty_g: 160, category: "Batter", shelf_life: 4 },
+            { name: "Boiled Spiced Potatoes", base_qty_g: 80, category: "Vegetables", shelf_life: 14 }
+          ],
+          instructions: ["Spread dosa batter thinly on hot iron tawa.", "Drizzle oil/ghee till edges turn golden and crisp.", "Place spiced potato masala in center, fold tightly.", "Serve hot with coconut chutney and piping hot sambar."]
+        }
+      ],
+      "lunch": [
+        {
+          name: "South Indian Bisibelebath with Potato Chips",
+          prepTime: "15 mins", cookTime: "25 mins", calories: 490, protein: 17, carbs: 78, fat: 11, calcium: 110, iron: 4.1, vitaminC: 28,
+          tags: ["One Pot Meal", "Rice Lentil Mash", "Flavorsome"],
+          ingredients: [
+            { name: "Rice & Toor Dal", base_qty_g: 100, category: "Grains & Pulses", shelf_life: 180 },
+            { name: "Mixed Vegetables (Carrot, Beans, Peas)", base_qty_g: 80, category: "Vegetables", shelf_life: 5 },
+            { name: "Bisibelebath Powder & Tamarind", base_qty_g: 15, category: "Pantry", shelf_life: 90 }
+          ],
+          instructions: ["Cook rice, dal, and vegetables together.", "Add tamarind extract, bisibelebath spice powder, and salt.", "Simmer till well blended and top with fried cashews in ghee."]
+        },
+        {
+          name: "Tangy Rasam Rice, Potato Fry & Curd Rice",
+          prepTime: "15 mins", cookTime: "20 mins", calories: 470, protein: 13, carbs: 82, fat: 8, calcium: 120, iron: 3.2, vitaminC: 25,
+          tags: ["Digestive Rasam", "Soothing Curd Rice", "Comfort Lunch"],
+          ingredients: [
+            { name: "Steamed Rice", base_qty_g: 120, category: "Grains", shelf_life: 180 },
+            { name: "Tamarind & Tomato Rasam Base", base_qty_g: 80, category: "Produce", shelf_life: 7 },
+            { name: "Fresh Curd", base_qty_g: 80, category: "Dairy", shelf_life: 7 }
+          ],
+          instructions: ["Boil rasam with pepper, cumin, tamarind, and tomatoes.", "Serve hot rasam over steamed rice alongside crispy roasted potatoes.", "Finish meal with cooling tempered curd rice."]
+        }
+      ],
+      "dinner": [
+        {
+          name: "Kerala Appam with Creamy Vegetable Stew",
+          prepTime: "15 mins", cookTime: "20 mins", calories: 420, protein: 12, carbs: 68, fat: 12, calcium: 130, iron: 3.5, vitaminC: 18,
+          tags: ["Lace Crepe", "Coconut Milk Stew", "Mild & Soothing"],
+          ingredients: [
+            { name: "Fermented Rice Coconut Batter", base_qty_g: 140, category: "Batter", shelf_life: 3 },
+            { name: "Mixed Veggies & Coconut Milk", base_qty_g: 120, category: "Produce/Pantry", shelf_life: 5 }
+          ],
+          instructions: ["Pour batter into appam chatti, swirl to create thin lacy edges and soft center.", "Simmer carrots, potatoes, and peas in aromatic spiced coconut milk.", "Serve hot appam with warm vegetable stew."]
+        }
+      ]
+    },
+    "Maharashtra": {
+      "breakfast": [
+        {
+          name: "Maharashtrian Kanda Poha & Solkadhi",
+          prepTime: "15 mins", cookTime: "15 mins", calories: 330, protein: 8, carbs: 56, fat: 8, calcium: 45, iron: 3.1, vitaminC: 22,
+          tags: ["Flattened Rice", "Quick & Light", "Marathi Special"],
+          ingredients: [
+            { name: "Flattened Rice (Poha)", base_qty_g: 75, category: "Grains", shelf_life: 90 },
+            { name: "Onions & Peanuts", base_qty_g: 65, category: "Produce/Nuts", shelf_life: 30 }
+          ],
+          instructions: ["Rinse poha and drain.", "Sauté mustard seeds, peanuts, chilies, and onions in oil.", "Add turmeric, salt, and poha; steam 3 mins. Garnish with lemon and coriander."]
+        },
+        {
+          name: "Spicy Kolhapuri Misal Pav & Farsan",
+          prepTime: "15 mins", cookTime: "20 mins", calories: 450, protein: 18, carbs: 62, fat: 14, calcium: 90, iron: 4.8, vitaminC: 30,
+          tags: ["Spicy Sprouts", "Crunchy Farsan", "Energy Boost"],
+          ingredients: [
+            { name: "Sprouted Matki (Moth Beans)", base_qty_g: 90, category: "Sprouts", shelf_life: 4 },
+            { name: "Spicy Kat/Rassa Gravy", base_qty_g: 80, category: "Produce/Spices", shelf_life: 7 },
+            { name: "Crispy Farsan & Ladi Pav", base_qty_g: 80, category: "Bakery/Pantry", shelf_life: 10 }
+          ],
+          instructions: ["Cook sprouted matki gravy.", "Prepare fiery chili-garlic Kat (rassa).", "Assemble: sprouted matki base, crunchy farsan, chopped raw onions, hot rassa. Serve with pav."]
+        }
+      ],
+      "lunch": [
+        {
+          name: "Traditional Pitla Bhakri with Green Chili Thecha",
+          prepTime: "15 mins", cookTime: "20 mins", calories: 520, protein: 18, carbs: 80, fat: 10, calcium: 95, iron: 4.8, vitaminC: 30,
+          tags: ["Rustic Flavor", "Besan Curry", "High Fiber"],
+          ingredients: [
+            { name: "Gram Flour (Besan)", base_qty_g: 60, category: "Pulses", shelf_life: 120 },
+            { name: "Jowar / Sorghum Flour", base_qty_g: 80, category: "Grains", shelf_life: 90 },
+            { name: "Green Chilies & Garlic (Thecha)", base_qty_g: 20, category: "Spices", shelf_life: 10 }
+          ],
+          instructions: ["Whisk besan with turmeric and water.", "Temper garlic and chilies in oil, add besan water and stir till thick.", "Pat jowar dough into bhakri and cook on tawa.", "Serve pitla hot with jowar bhakri and garlic chili thecha."]
+        }
+      ],
+      "dinner": [
+        {
+          name: "Varan Bhaat with Desi Ghee & Potato Sukka",
+          prepTime: "10 mins", cookTime: "20 mins", calories: 460, protein: 14, carbs: 78, fat: 9, calcium: 70, iron: 3.2, vitaminC: 12,
+          tags: ["Simple Varan", "Soothing Dinner", "Comfort Food"],
+          ingredients: [
+            { name: "Toor Dal (for Varan)", base_qty_g: 60, category: "Pulses", shelf_life: 180 },
+            { name: "Steamed Rice", base_qty_g: 80, category: "Grains", shelf_life: 180 },
+            { name: "Desi Ghee", base_qty_g: 10, category: "Dairy", shelf_life: 60 }
+          ],
+          instructions: ["Boil toor dal with turmeric and salt, mash smooth for mild varan.", "Serve hot varan over rice drizzled with ghee alongside spiced potato fry."]
+        }
+      ]
+    },
+    "Bengal": {
+      "breakfast": [
+        {
+          name: "Bengali Luchi with Alur Dom & Cholar Dal",
+          prepTime: "20 mins", cookTime: "20 mins", calories: 460, protein: 12, carbs: 70, fat: 14, calcium: 75, iron: 3.5, vitaminC: 18,
+          tags: ["Fluffy Luchi", "Spiced Baby Potato", "Festive Breakfast"],
+          ingredients: [
+            { name: "Refined Flour (for Luchi)", base_qty_g: 75, category: "Grains", shelf_life: 90 },
+            { name: "Baby Potatoes (Alur Dom)", base_qty_g: 80, category: "Vegetables", shelf_life: 21 },
+            { name: "Chana Dal with Coconut", base_qty_g: 50, category: "Pulses", shelf_life: 180 }
+          ],
+          instructions: ["Knead dough and deep fry fluffy white luchis.", "Cook baby potatoes in mustard oil with ginger, cumin, and tomato gravy.", "Serve hot luchis with alur dom."]
+        }
+      ],
+      "lunch": [
+        {
+          name: "Bengali Shukto, Cholar Dal & Steamed Gobindobhog Rice",
+          prepTime: "20 mins", cookTime: "25 mins", calories: 520, protein: 16, carbs: 82, fat: 11, calcium: 130, iron: 4.5, vitaminC: 25,
+          tags: ["Bitter Gourd Medley", "Coconut Milk Gravy", "Traditional"],
+          ingredients: [
+            { name: "Mixed Veggies (Bitter Gourd, Raw Banana, Eggplant, Drumstick)", base_qty_g: 120, category: "Fresh Veg", shelf_life: 5 },
+            { name: "Chana Dal with Coconut Chips", base_qty_g: 60, category: "Pulses", shelf_life: 180 },
+            { name: "Gobindobhog Rice", base_qty_g: 75, category: "Grains", shelf_life: 180 }
+          ],
+          instructions: ["Sauté veggies in mustard oil, simmer in mustard-poppy seed paste and milk for traditional Shukto.", "Cook Cholar dal tempered with ghee, coconut, and whole spices.", "Serve with fragrant rice."]
+        }
+      ],
+      "dinner": [
+        {
+          name: "Bhaja Moong Dal, Baingan Bhaja & Gobindobhog Rice",
+          prepTime: "15 mins", cookTime: "20 mins", calories: 480, protein: 15, carbs: 78, fat: 10, calcium: 90, iron: 4.1, vitaminC: 15,
+          tags: ["Roasted Moong Dal", "Pan Fried Eggplant", "Aromatic"],
+          ingredients: [
+            { name: "Roasted Yellow Moong Dal", base_qty_g: 60, category: "Pulses", shelf_life: 180 },
+            { name: "Sliced Eggplant (Baingan)", base_qty_g: 100, category: "Vegetables", shelf_life: 7 },
+            { name: "Rice", base_qty_g: 75, category: "Grains", shelf_life: 180 }
+          ],
+          instructions: ["Dry roast moong dal till aromatic, pressure cook with ginger and green chilies.", "Marinate eggplant slices in turmeric, chili, and salt; pan fry in mustard oil.", "Serve hot with rice."]
+        }
+      ]
+    },
+    "General": {
+      "breakfast": [
+        {
+          name: "Vegetable Oats Upma with Roasted Peanuts",
+          prepTime: "10 mins", cookTime: "10 mins", calories: 310, protein: 10, carbs: 50, fat: 7, calcium: 60, iron: 3.2, vitaminC: 18,
+          tags: ["High Fiber", "Quick Prep", "Healthy Heart"],
+          ingredients: [
+            { name: "Rolled Oats", base_qty_g: 60, category: "Grains", shelf_life: 180 },
+            { name: "Chopped Mixed Veggies", base_qty_g: 50, category: "Produce", shelf_life: 5 },
+            { name: "Peanuts & Mustard Temper", base_qty_g: 15, category: "Pantry", shelf_life: 60 }
+          ],
+          instructions: ["Dry roast oats.", "Temper mustard seeds, curry leaves, and peanuts in oil; sauté veggies.", "Add water, salt, and oats; simmer till soft."]
+        }
+      ],
+      "lunch": [
+        {
+          name: "Wholesome Dal Tadka, Jeera Rice & Chapati",
+          prepTime: "15 mins", cookTime: "25 mins", calories: 520, protein: 18, carbs: 84, fat: 10, calcium: 85, iron: 4.2, vitaminC: 15,
+          tags: ["Balanced Protein", "Comfort Food", "USDA Compliant"],
+          ingredients: [
+            { name: "Yellow Toor Dal", base_qty_g: 60, category: "Pulses", shelf_life: 180 },
+            { name: "Basmati Rice", base_qty_g: 70, category: "Grains", shelf_life: 180 },
+            { name: "Whole Wheat Atta", base_qty_g: 60, category: "Grains", shelf_life: 90 }
+          ],
+          instructions: ["Pressure cook dal.", "Temper ghee with garlic, cumin, and chili.", "Serve with jeera rice and chapatis."]
+        }
+      ],
+      "dinner": [
+        {
+          name: "Yellow Moong Khichdi with Ghee & Roasted Papad",
+          prepTime: "10 mins", cookTime: "20 mins", calories: 430, protein: 15, carbs: 70, fat: 8, calcium: 75, iron: 3.2, vitaminC: 12,
+          tags: ["Easy Digestion", "Nourishing", "Comfort Night"],
+          ingredients: [
+            { name: "Moong Dal & Rice", base_qty_g: 100, category: "Grains & Pulses", shelf_life: 180 },
+            { name: "Desi Ghee", base_qty_g: 10, category: "Dairy", shelf_life: 60 }
+          ],
+          instructions: ["Pressure cook dal and rice together with turmeric and salt.", "Top with ghee temper and serve with roasted papad."]
+        }
+      ]
     }
   },
 

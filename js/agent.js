@@ -53,28 +53,34 @@ window.KhanaAgent = {
     // Step 4: Final Synthesis & Output
     let responseText = "";
     
-    if (promptLower.includes("gujju") || promptLower.includes("gujarat") || promptLower.includes("gujarati") || promptLower.includes("maharashtra")) {
+    if (promptLower.includes("gujju") || promptLower.includes("gujarat") || promptLower.includes("gujarati") || promptLower.includes("dhokla") || promptLower.includes("undhiyu") || promptLower.includes("thepla")) {
       toolName = "Regional_Cuisine_Adapter";
-      responseText = `✨ **Gujarati Cuisine Adapter Activated!**\n\nI have re-aligned your entire 30-Day 90-Meal plan to 100% authentic Gujarati vegetarian specialties:\n- **Breakfast:** Steamed Nylon Dhokla, Khandvi, Methi Thepla & Handvo\n- **Lunch:** Authentic Surti Undhiyu, Dal Dhokli, Gujarati Sweet Dal & Phulka Roti\n- **Dinner:** Comfort Khichdi Kadhi, Sev Tamatar Sabzi, Ringan No Olo & Bajra Rotlo\n\n*All 90 meals updated live to 100% Gujarati!*`;
+      responseText = `✨ **Gujarati Cuisine Adapter Activated!**\n\nI have re-aligned your entire 30-Day 90-Meal plan to 100% authentic Gujarati vegetarian specialties:\n- **Breakfast:** Steamed Nylon Dhokla, Khandvi, Methi Thepla & Handvo\n- **Lunch:** Authentic Surti Undhiyu, Dal Dhokli, Gujarati Sweet Dal & Phulka Roti\n- **Dinner:** Comfort Khichdi Kadhi, Sev Tamatar Sabzi, Ringan No Olo & Bajra Rotlo\n\n*All 90 meals updated live on screen to Gujarati!*`;
       
       if (window.KhanaAppEvents && window.KhanaAppEvents.onCuisineChange) {
         window.KhanaAppEvents.onCuisineChange("Gujarat");
       }
-    } else if (promptLower.includes("punjab") || promptLower.includes("punjabi")) {
+    } else if (promptLower.includes("maharashtra") || promptLower.includes("marathi") || promptLower.includes("mumbai") || promptLower.includes("poha") || promptLower.includes("misal") || promptLower.includes("bhakri")) {
       toolName = "Regional_Cuisine_Adapter";
-      responseText = `✨ **Punjabi Cuisine Adapter Activated!**\n\nI have adapted your 30-Day meal matrix with rich Punjabi flavors:\n- **Breakfast:** Stuffed Aloo Paratha with Curd, Amritsari Kulcha & Chole\n- **Lunch:** Dal Makhani, Rajma Chawal, Sarson ka Saag & Chapati\n- **Dinner:** Paneer Tikka Masala, Kadhi Pakora & Jeera Rice\n\n*All 90 meals updated live to Punjabi!*`;
+      responseText = `✨ **Maharashtrian Cuisine Adapter Activated!**\n\nI have adapted your 30-Day meal matrix with authentic Maharashtrian recipes:\n- **Breakfast:** Kanda Poha, Spicy Misal Pav, Thalipeeth & Sabudana Khichdi\n- **Lunch:** Pitla Bhakri with Green Chili Thecha, Varan Bhaat & Katachi Amti\n- **Dinner:** Matki Usal with Chapati, Shevgha Bhaji & Masale Bhaat\n\n*All 90 meals updated live on screen to Maharashtrian!*`;
+      if (window.KhanaAppEvents && window.KhanaAppEvents.onCuisineChange) {
+        window.KhanaAppEvents.onCuisineChange("Maharashtra");
+      }
+    } else if (promptLower.includes("punjab") || promptLower.includes("punjabi") || promptLower.includes("kulcha") || promptLower.includes("dal makhani")) {
+      toolName = "Regional_Cuisine_Adapter";
+      responseText = `✨ **Punjabi Cuisine Adapter Activated!**\n\nI have adapted your 30-Day meal matrix with rich Punjabi flavors:\n- **Breakfast:** Stuffed Aloo Paratha with Curd, Amritsari Kulcha & Chole\n- **Lunch:** Dal Makhani, Rajma Chawal, Sarson ka Saag & Chapati\n- **Dinner:** Paneer Tikka Masala, Kadhi Pakora & Jeera Rice\n\n*All 90 meals updated live on screen to Punjabi!*`;
       if (window.KhanaAppEvents && window.KhanaAppEvents.onCuisineChange) {
         window.KhanaAppEvents.onCuisineChange("Punjab");
       }
-    } else if (promptLower.includes("south") || promptLower.includes("dosa") || promptLower.includes("idli")) {
+    } else if (promptLower.includes("south") || promptLower.includes("dosa") || promptLower.includes("idli") || promptLower.includes("sambar")) {
       toolName = "Regional_Cuisine_Adapter";
-      responseText = `✨ **South Indian Cuisine Adapter Activated!**\n\nI have updated your meal matrix with traditional South Indian recipes:\n- **Breakfast:** Steamed Idli Sambar, Crisp Masala Dosa & Ven Pongal\n- **Lunch:** Bisibelebath, Rasam Rice with Potato Fry & Curd Rice\n- **Dinner:** Appam with Veg Stew & Lemon Rice\n\n*All 90 meals updated live to South Indian!*`;
+      responseText = `✨ **South Indian Cuisine Adapter Activated!**\n\nI have updated your meal matrix with traditional South Indian recipes:\n- **Breakfast:** Steamed Idli Sambar, Crisp Masala Dosa & Ven Pongal\n- **Lunch:** Bisibelebath, Rasam Rice with Potato Fry & Curd Rice\n- **Dinner:** Appam with Veg Stew & Lemon Rice\n\n*All 90 meals updated live on screen to South Indian!*`;
       if (window.KhanaAppEvents && window.KhanaAppEvents.onCuisineChange) {
         window.KhanaAppEvents.onCuisineChange("South India");
       }
-    } else if (promptLower.includes("bengal") || promptLower.includes("bengali")) {
+    } else if (promptLower.includes("bengal") || promptLower.includes("bengali") || promptLower.includes("luchi") || promptLower.includes("shukto")) {
       toolName = "Regional_Cuisine_Adapter";
-      responseText = `✨ **Bengali Cuisine Adapter Activated!**\n\nI have updated your 30-Day meal matrix with authentic Bengali recipes:\n- **Breakfast:** Luchi Alur Dom, Radhabhallabhi & Cholar Dal\n- **Lunch:** Shukto, Ghugni, Cholar Dal & Steamed Rice\n- **Dinner:** Baingan Bhaja, Kichuri & Mishti Doi\n\n*All 90 meals updated live to Bengali!*`;
+      responseText = `✨ **Bengali Cuisine Adapter Activated!**\n\nI have updated your 30-Day meal matrix with authentic Bengali recipes:\n- **Breakfast:** Luchi Alur Dom, Radhabhallabhi & Cholar Dal\n- **Lunch:** Shukto, Ghugni, Cholar Dal & Steamed Rice\n- **Dinner:** Baingan Bhaja, Kichuri & Mishti Doi\n\n*All 90 meals updated live on screen to Bengali!*`;
       if (window.KhanaAppEvents && window.KhanaAppEvents.onCuisineChange) {
         window.KhanaAppEvents.onCuisineChange("Bengal");
       }

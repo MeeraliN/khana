@@ -100,19 +100,27 @@ document.addEventListener("DOMContentLoaded", function () {
     countrySelect?.addEventListener("change", (e) => {
       state.preferences.country = e.target.value;
       updateStateOptions(e.target.value);
+      state.preferences.state = stateSelect?.value || "Gujarat";
+      generatePlanAndRefresh();
+      if (state.activeTab === "grocery") renderGroceryList();
     });
 
     stateSelect?.addEventListener("change", (e) => {
       state.preferences.state = e.target.value;
+      generatePlanAndRefresh();
+      if (state.activeTab === "grocery") renderGroceryList();
     });
 
     dietSelect?.addEventListener("change", (e) => {
       state.preferences.dietType = e.target.value;
       updateDietWarningBanner(e.target.value);
+      generatePlanAndRefresh();
+      if (state.activeTab === "grocery") renderGroceryList();
     });
 
     freqSelect?.addEventListener("change", (e) => {
       state.preferences.marketingFrequency = e.target.value;
+      if (state.activeTab === "grocery") renderGroceryList();
     });
 
     btnGenerate?.addEventListener("click", () => {

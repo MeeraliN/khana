@@ -91,25 +91,47 @@ window.KhanaGrocery = {
 
   /**
    * Calculates total grocery requirements for the entire household
+   * @param {Array} mealPlan - 30 days of meals
+   * @param {Array} familyMembers - List of family members
+   * @param {string} frequency - 'daily', 'twice_weekly', 'weekly', 'biweekly'
+   * @param {Object} options - { startDay: number, scope: 'selected_day' | 'frequency_trip' | 'monthly_total' }
    */
-  generateGroceryList: function(mealPlan, familyMembers, frequency) {
+  generateGroceryList: function(mealPlan, familyMembers, frequency, options = {}) {
     const totalPortions = (familyMembers && familyMembers.length > 0)
       ? familyMembers.reduce((sum, member) => sum + (parseFloat(member.portion_factor) || 1.0), 0)
       : 1.0;
 
-    const daysMultiplier = {
+    const startDay = Math.max(1, Math.min(30, options.startDay || 1));
+    const scope = options.scope || "frequency_trip"; // 'selected_day', 'frequency_trip', 'monthly_total'
+
+    const frequencyDays = {
       "daily": 1,
-      "twice_weekly": 3.5,
+      "twice_weekly": 3,
       "weekly": 7,
       "biweekly": 14,
       "monthly": 30
     }[frequency] || 7;
 
-    const daysToCover = Math.min(30, Math.ceil(daysMultiplier));
+    let daysToCover = 7;
+    let frequencyLabel = "";
+
+    if (scope === "selected_day") {
+      daysToCover = 1;
+      frequencyLabel = `Single Day Market Needs (Day ${startDay})`;
+    } else if (scope === "monthly_total") {
+      daysToCover = 30;
+      frequencyLabel = `Full 30-Day Complete Pantry Total (90 Meals)`;
+    } else { // 'frequency_trip'
+      daysToCover = Math.min(30, frequencyDays);
+      const endDay = Math.min(30, startDay + daysToCover - 1);
+      frequencyLabel = `${this.getFrequencyLabel(frequency)} (Day ${startDay} to Day ${endDay})`;
+    }
+
     const rawAggregated = {};
 
-    for (let d = 0; d < daysToCover; d++) {
-      const dayData = mealPlan[d % mealPlan.length];
+    for (let i = 0; i < daysToCover; i++) {
+      const dayNum = ((startDay - 1 + i) % 30) + 1;
+      const dayData = mealPlan[dayNum - 1];
       if (!dayData) continue;
 
       const meals = [dayData.meals.breakfast, dayData.meals.lunch, dayData.meals.dinner];
@@ -157,7 +179,9 @@ window.KhanaGrocery = {
     return {
       householdPortions: totalPortions.toFixed(1),
       shoppingDaysCovered: daysToCover,
-      frequencyLabel: this.getFrequencyLabel(frequency),
+      startDay: startDay,
+      scope: scope,
+      frequencyLabel: frequencyLabel,
       categories: categories,
       rawItemsCount: Object.keys(rawAggregated).length
     };

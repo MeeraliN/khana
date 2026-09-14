@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     mealPlan: [],
     selectedDay: 1,
+    todayDay: 1, // Start / Today day marker
+    groceryScope: "frequency_trip", // 'selected_day', 'frequency_trip', 'monthly_total'
     activeTab: "planner"
   };
 
@@ -283,20 +285,44 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!daysContainer) return;
     daysContainer.innerHTML = "";
 
+    // Update current day label header with Today button
+    if (currentDayLabel) {
+      const isToday = state.selectedDay === state.todayDay;
+      currentDayLabel.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span>Day ${state.selectedDay} ${isToday ? '📌 (Start / Today)' : ''}</span>
+          <button id="btn-set-today" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold text-[11px] border border-amber-500/30 transition">
+            📌 Set Day ${state.selectedDay} as Today
+          </button>
+        </div>
+      `;
+      document.getElementById("btn-set-today")?.addEventListener("click", () => {
+        state.todayDay = state.selectedDay;
+        render30DaySelector();
+        renderDayMeals(state.selectedDay);
+        if (state.activeTab === "grocery") renderGroceryList();
+      });
+    }
+
     for (let d = 1; d <= 30; d++) {
       const btn = document.createElement("button");
       const isSelected = d === state.selectedDay;
+      const isToday = d === state.todayDay;
 
-      btn.className = `flex-shrink-0 px-4 py-2.5 rounded-xl font-medium text-xs transition-all ${
+      btn.className = `flex-shrink-0 px-3.5 py-2 rounded-xl font-medium text-xs transition-all relative ${
         isSelected
-          ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 scale-105"
+          ? "bg-amber-500 text-white shadow-md shadow-amber-500/20 scale-105 font-bold"
           : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
       }`;
-      btn.innerHTML = `<span>Day ${d}</span>`;
+      btn.innerHTML = `
+        <span>Day ${d}</span>
+        ${isToday ? '<span class="ml-1 px-1 py-0.2 rounded bg-red-500 text-white font-extrabold text-[9px] uppercase">Today</span>' : ''}
+      `;
       btn.addEventListener("click", () => {
         state.selectedDay = d;
         render30DaySelector();
         renderDayMeals(d);
+        if (state.activeTab === "grocery") renderGroceryList();
       });
       daysContainer.appendChild(btn);
     }
@@ -411,22 +437,44 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderGroceryList() {
     if (!groceryContainer) return;
 
+    const activeScope = state.groceryScope || "frequency_trip";
+
     const data = window.KhanaGrocery.generateGroceryList(
       state.mealPlan,
       state.preferences.familyMembers,
-      state.preferences.marketingFrequency
+      state.preferences.marketingFrequency,
+      { startDay: state.selectedDay, scope: activeScope }
     );
 
     let html = `
-      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-wrap items-center justify-between gap-4">
+      <!-- Scope Selector Control Bar -->
+      <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-extrabold text-slate-800 dark:text-slate-200">🛒 Market Scope Starting from Day ${state.selectedDay}:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button class="btn-scope px-3 py-1.5 rounded-xl font-bold text-xs transition ${activeScope === 'selected_day' ? 'bg-amber-500 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}" data-scope="selected_day">
+            1️⃣ Single Day (Day ${state.selectedDay} Only)
+          </button>
+          <button class="btn-scope px-3 py-1.5 rounded-xl font-bold text-xs transition ${activeScope === 'frequency_trip' ? 'bg-amber-500 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}" data-scope="frequency_trip">
+            🗓️ Market Trip (${state.preferences.marketingFrequency.replace('_', ' ')})
+          </button>
+          <button class="btn-scope px-3 py-1.5 rounded-xl font-bold text-xs transition ${activeScope === 'monthly_total' ? 'bg-amber-500 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}" data-scope="monthly_total">
+            📦 Full 30-Day Pantry Total
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary Info Banner -->
+      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-wrap items-center justify-between gap-4 mt-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg">
-            🛒
+            📋
           </div>
           <div>
             <h3 class="font-extrabold text-slate-900 dark:text-slate-100 text-sm">${data.frequencyLabel}</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400">
-              Scaled for <strong>${data.householdPortions}x portions</strong> (${state.preferences.familyMembers.length} family members) • ${data.shoppingDaysCovered} days
+              Scaled for <strong>${data.householdPortions}x portions</strong> (${state.preferences.familyMembers.length} family members) • ${data.shoppingDaysCovered} days of meals
             </p>
           </div>
         </div>
@@ -462,6 +510,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     html += `</div>`;
     groceryContainer.innerHTML = html;
+
+    // Attach event listeners for scope buttons
+    document.querySelectorAll(".btn-scope").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.groceryScope = btn.getAttribute("data-scope");
+        renderGroceryList();
+      });
+    });
 
     document.getElementById("btn-print-grocery")?.addEventListener("click", () => {
       window.print();

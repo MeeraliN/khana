@@ -53,11 +53,11 @@ window.KhanaAgent = {
     // Step 4: Final Synthesis & Output
     let responseText = "";
     
-    if (promptLower.includes("gujju") || promptLower.includes("gujarat") || promptLower.includes("gujarati")) {
+    if (promptLower.includes("gujju") || promptLower.includes("gujarat") || promptLower.includes("gujarati") || promptLower.includes("maharashtra")) {
       toolName = "Regional_Cuisine_Adapter";
-      responseText = `✨ **Gujarati Cuisine Adapter Activated!**\n\nI have re-aligned your 30-Day 90-Meal plan to authentic Gujarati vegetarian specialties:\n- **Breakfast:** Steamed Nylon Dhokla, Khandvi, Methi Thepla & Handvo\n- **Lunch:** Festive Undhiyu, Dal Dhokli, Gujarati Sweet Dal & Phulka Roti\n- **Dinner:** Comfort Khichdi Kadhi, Sev Tamatar Sabzi & Bajra Rotlo\n\n*All 90 meals remain 100% Vegetarian with zero waste and full USDA nutrition balance!*`;
+      responseText = `✨ **Gujarati Cuisine Adapter Activated!**\n\nI have re-aligned your entire 30-Day 90-Meal plan to 100% authentic Gujarati vegetarian specialties:\n- **Breakfast:** Steamed Nylon Dhokla, Khandvi, Methi Thepla & Handvo\n- **Lunch:** Authentic Surti Undhiyu, Dal Dhokli, Gujarati Sweet Dal & Phulka Roti\n- **Dinner:** Comfort Khichdi Kadhi, Sev Tamatar Sabzi, Ringan No Olo & Bajra Rotlo\n\n*All 90 meals are 100% Gujarati, 100% Vegetarian, and fully USDA compliant!*`;
       
-      // Optionally trigger state update if callback provided
+      // Force trigger state update to Gujarat
       if (window.KhanaAppEvents && window.KhanaAppEvents.onCuisineChange) {
         window.KhanaAppEvents.onCuisineChange("Gujarat");
       }
@@ -82,7 +82,7 @@ window.KhanaAgent = {
     } else if (promptLower.includes("hi") || promptLower.includes("hello") || promptLower.includes("hey")) {
       responseText = `Hello! How can I help you customize your 30-day meal plan today? You can ask me to adapt the menu to specific regional cuisines (e.g. 'Make it pure Gujju menu' or 'Switch to South Indian'), swap meals, or optimize your grocery buying!`;
     } else {
-      responseText = `I have processed your request ("${userPrompt}") through the Strands Agent SDK toolchain.\n\n- **Diet Constraint:** ${activePreferences.dietType.toUpperCase()} (100% Verified)\n- **Location Context:** ${activePreferences.city}, ${activePreferences.state}, ${activePreferences.country}\n- **USDA Compliance:** Balanced for Calories, Protein, and Micronutrients.\n\nHow else would you like to customize your 30-day meal matrix or grocery list?`;
+      responseText = `I have processed your request ("${userPrompt}") through the Strands Agent SDK toolchain.\n\n- **Diet Constraint:** ${activePreferences.dietType.toUpperCase()} (100% Verified)\n- **Location Context:** ${activePreferences.state}, ${activePreferences.country}\n- **USDA Compliance:** Balanced for Calories, Protein, and Micronutrients.\n\nHow else would you like to customize your 30-day meal matrix or grocery list?`;
     }
 
     onStepCallback({

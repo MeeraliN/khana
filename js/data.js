@@ -189,20 +189,19 @@ window.KhanaData = {
     "veg": {
       "breakfast": [
         {
-          name: "Maharashtra Special Kanda Poha",
+          name: "Gujarati Steamed Nylon Dhokla & Green Chutney",
           prepTime: "15 mins",
           cookTime: "15 mins",
-          calories: 320, protein: 7, carbs: 54, fat: 8, calcium: 42, iron: 2.8, vitaminC: 22, vitaminA: 110, potassium: 280,
-          tags: ["High Iron", "Quick Prep", "Low Fat"],
+          calories: 290, protein: 9, carbs: 48, fat: 6, calcium: 50, iron: 2.5, vitaminC: 18, vitaminA: 110, potassium: 280,
+          tags: ["High Protein", "Steamed", "Gujarati Classic"],
           ingredients: [
-            { name: "Flattened Rice (Poha)", base_qty_g: 75, category: "Grains", shelf_life: 90 },
-            { name: "Onions", base_qty_g: 50, category: "Vegetables", shelf_life: 14 },
-            { name: "Peanuts", base_qty_g: 15, category: "Nuts & Seeds", shelf_life: 60 },
-            { name: "Green Chilies & Mustard Seeds", base_qty_g: 5, category: "Spices", shelf_life: 30 },
-            { name: "Lemon & Coriander", base_qty_g: 10, category: "Fresh Produce", shelf_life: 5 },
-            { name: "Cooking Oil", base_qty_g: 10, category: "Oils", shelf_life: 180 }
+            { name: "Gram Flour (Besan)", base_qty_g: 75, category: "Flour/Pulses", shelf_life: 120 },
+            { name: "Semolina (Suji)", base_qty_g: 20, category: "Grains", shelf_life: 90 },
+            { name: "Eno Fruit Salt / Baking Soda", base_qty_g: 5, category: "Pantry", shelf_life: 180 },
+            { name: "Green Chili & Mustard Tempering", base_qty_g: 10, category: "Spices", shelf_life: 30 },
+            { name: "Grated Coconut & Coriander", base_qty_g: 10, category: "Fresh Produce", shelf_life: 5 }
           ],
-          instructions: ["Rinse poha and drain water.", "Sauté mustard seeds, peanuts, and onions in oil until translucent.", "Add turmeric, green chilies, and salt.", "Mix poha gently, cover and steam for 3 mins. Garnish with lemon and coriander."]
+          instructions: ["Whisk besan, suji, turmeric, lemon juice, and water.", "Steam in greased plate for 15 mins.", "Temper mustard seeds, sesame, and green chilies in oil.", "Pour temper over dhokla and cut into squares."]
         },
         {
           name: "Stuffed Aloo Methi Paratha with Fresh Curd",

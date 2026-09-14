@@ -18,6 +18,150 @@ window.KhanaData = {
     potassium: 3500 // mg
   },
 
+  // Dedicated Regional Recipe Pools for 100% Authentic State Meal Plans
+  REGIONAL_RECIPES: {
+    "Gujarat": {
+      "breakfast": [
+        {
+          name: "Gujarati Steamed Nylon Dhokla & Green Chutney",
+          prepTime: "15 mins", cookTime: "15 mins", calories: 290, protein: 9, carbs: 48, fat: 6, calcium: 50, iron: 2.5, vitaminC: 18,
+          tags: ["Steamed Protein", "Gut Healthy", "Gujarati Classic"],
+          ingredients: [
+            { name: "Gram Flour (Besan)", base_qty_g: 70, category: "Flour/Pulses", shelf_life: 120 },
+            { name: "Semolina (Suji)", base_qty_g: 20, category: "Grains", shelf_life: 90 },
+            { name: "Eno Fruit Salt / Baking Soda", base_qty_g: 5, category: "Pantry", shelf_life: 180 },
+            { name: "Green Chili & Mustard Tempering", base_qty_g: 10, category: "Spices", shelf_life: 30 },
+            { name: "Grated Coconut & Coriander", base_qty_g: 15, category: "Fresh Produce", shelf_life: 5 }
+          ],
+          instructions: ["Whisk besan, suji, turmeric, lemon juice, sugar, and water into smooth batter.", "Add Eno salt and steam in greased plate for 15 mins.", "Temper mustard seeds, sesame, and green chilies in oil with water & sugar.", "Pour temper over fluffy dhokla and cut into squares."]
+        },
+        {
+          name: "Gujarati Methi Thepla & Fresh Curd",
+          prepTime: "15 mins", cookTime: "10 mins", calories: 360, protein: 10, carbs: 54, fat: 11, calcium: 110, iron: 3.8, vitaminC: 22,
+          tags: ["Fresh Fenugreek", "Travel Friendly", "High Fiber"],
+          ingredients: [
+            { name: "Whole Wheat Flour", base_qty_g: 75, category: "Grains", shelf_life: 90 },
+            { name: "Fresh Fenugreek (Methi) Leaves", base_qty_g: 40, category: "Fresh Greens", shelf_life: 3 },
+            { name: "Gram Flour (Besan)", base_qty_g: 15, category: "Grains", shelf_life: 120 },
+            { name: "Curd / Yogurt", base_qty_g: 80, category: "Dairy", shelf_life: 7 },
+            { name: "Sesame Seeds & Spices", base_qty_g: 8, category: "Spices", shelf_life: 90 }
+          ],
+          instructions: ["Knead wheat flour, besan, chopped methi leaves, curd, sesame seeds, and spices.", "Roll into thin flatbreads (thepla).", "Roast on hot tawa with a drizzle of oil till golden spots appear.", "Serve with fresh curd or mango chundo."]
+        },
+        {
+          name: "Spiced Gujarati Handvo with Sesame Tempering",
+          prepTime: "15 mins", cookTime: "25 mins", calories: 380, protein: 12, carbs: 56, fat: 12, calcium: 85, iron: 3.2, vitaminC: 15,
+          tags: ["Lentil Rice Cake", "Crispy Crust", "Nutritious"],
+          ingredients: [
+            { name: "Mixed Dal & Rice Batter", base_qty_g: 120, category: "Grains & Pulses", shelf_life: 4 },
+            { name: "Grated Bottle Gourd (Lauki)", base_qty_g: 60, category: "Vegetables", shelf_life: 7 },
+            { name: "Sesame & Mustard Seeds", base_qty_g: 10, category: "Seeds", shelf_life: 180 },
+            { name: "Oil & Curry Leaves", base_qty_g: 10, category: "Oils", shelf_life: 180 }
+          ],
+          instructions: ["Mix fermented dal-rice batter with grated lauki, ginger, green chilies, and turmeric.", "Heat oil in deep pan, temper mustard, sesame, and curry leaves.", "Pour batter, cover and cook on low flame till golden and crispy on both sides."]
+        },
+        {
+          name: "Soft Gujarati Khandvi with Coconut Tempering",
+          prepTime: "15 mins", cookTime: "15 mins", calories: 310, protein: 9, carbs: 42, fat: 9, calcium: 95, iron: 2.8, vitaminC: 12,
+          tags: ["Silky Roll", "Melt in Mouth", "Low Calorie"],
+          ingredients: [
+            { name: "Gram Flour (Besan)", base_qty_g: 60, category: "Flour/Pulses", shelf_life: 120 },
+            { name: "Buttermilk / Sour Curd", base_qty_g: 150, category: "Dairy", shelf_life: 5 },
+            { name: "Mustard, Sesame & Coconut", base_qty_g: 15, category: "Pantry", shelf_life: 30 }
+          ],
+          instructions: ["Whisk besan and buttermilk with ginger paste, turmeric, and salt.", "Cook on medium heat stirring continuously till thick.", "Spread quickly over flipped plates, roll tightly into bite-sized cylinders.", "Top with hot mustard-sesame oil temper and grated coconut."]
+        }
+      ],
+      "lunch": [
+        {
+          name: "Authentic Gujarati Undhiyu & Whole Wheat Puri",
+          prepTime: "25 mins", cookTime: "30 mins", calories: 590, protein: 18, carbs: 82, fat: 22, calcium: 160, iron: 5.2, vitaminC: 45,
+          tags: ["Winter Classic", "Root Veg Power", "Festive Dish"],
+          ingredients: [
+            { name: "Mixed Veggies (Surti Papdi, Sweet Potato, Yam, Eggplant)", base_qty_g: 120, category: "Fresh Veg", shelf_life: 5 },
+            { name: "Methi Muthiya (Fenugreek Dumplings)", base_qty_g: 50, category: "Prepared Base", shelf_life: 3 },
+            { name: "Whole Wheat Atta (for Puri)", base_qty_g: 70, category: "Grains", shelf_life: 90 },
+            { name: "Groundnut Oil & Spices", base_qty_g: 15, category: "Oils", shelf_life: 180 }
+          ],
+          instructions: ["Stuff brinjal and potatoes with grated coconut, peanut, coriander, and spice mixture.", "Sauté surti papdi and root veggies in groundnut oil.", "Layer veggies with fried methi muthiyas and cook on low heat.", "Serve piping hot with puffed wheat puris."]
+        },
+        {
+          name: "Gujarati Dal Dhokli with Desi Ghee",
+          prepTime: "20 mins", cookTime: "25 mins", calories: 510, protein: 19, carbs: 84, fat: 11, calcium: 110, iron: 4.5, vitaminC: 20,
+          tags: ["One Pot Comfort", "Sweet & Tangy", "Protein Rich"],
+          ingredients: [
+            { name: "Toor Dal (Pigeon Peas)", base_qty_g: 65, category: "Pulses", shelf_life: 180 },
+            { name: "Whole Wheat Dough Strips (Dhokli)", base_qty_g: 70, category: "Grains", shelf_life: 90 },
+            { name: "Jaggery & Kokum / Peanuts", base_qty_g: 20, category: "Pantry", shelf_life: 90 },
+            { name: "Desi Ghee", base_qty_g: 10, category: "Dairy", shelf_life: 60 }
+          ],
+          instructions: ["Pressure cook toor dal, blend smooth with water, jaggery, peanuts, and kokum.", "Bring dal to boil.", "Cut rolled spiced wheat dough into diamond strips (dhokli) and drop into boiling dal.", "Simmer for 15 mins till dhokli is tender; drizzle ghee."]
+        },
+        {
+          name: "Khatty-Meethi Gujarati Dal, Steamed Rice & Phulka",
+          prepTime: "15 mins", cookTime: "25 mins", calories: 490, protein: 17, carbs: 88, fat: 8, calcium: 90, iron: 4.1, vitaminC: 18,
+          tags: ["Balanced Sweet & Sour", "Daily Staple", "Light Lunch"],
+          ingredients: [
+            { name: "Toor Dal", base_qty_g: 60, category: "Pulses", shelf_life: 180 },
+            { name: "Basmati Rice", base_qty_g: 70, category: "Grains", shelf_life: 180 },
+            { name: "Whole Wheat Atta", base_qty_g: 50, category: "Grains", shelf_life: 90 },
+            { name: "Jaggery, Lemon & Mustard Temper", base_qty_g: 15, category: "Pantry", shelf_life: 90 }
+          ],
+          instructions: ["Boil toor dal with peanuts and ginger.", "Simmer with jaggery, lemon juice, clove, and cinnamon.", "Temper mustard seeds, cumin, curry leaves, and asafoetida in oil; pour over dal.", "Serve with steamed rice and soft phulkas."]
+        },
+        {
+          name: "Sev Tamatar Nu Shaak, Gujarati Kadhi & Bajra Rotlo",
+          prepTime: "15 mins", cookTime: "20 mins", calories: 540, protein: 16, carbs: 78, fat: 16, calcium: 140, iron: 4.8, vitaminC: 35,
+          tags: ["Kathiyawadi Style", "Pearl Millet Power", "Spicy Tangy"],
+          ingredients: [
+            { name: "Crispy Sev", base_qty_g: 40, category: "Pantry", shelf_life: 60 },
+            { name: "Fresh Tomatoes", base_qty_g: 100, category: "Vegetables", shelf_life: 7 },
+            { name: "Pearl Millet (Bajra) Flour", base_qty_g: 80, category: "Grains", shelf_life: 60 },
+            { name: "Buttermilk & Besan (for Kadhi)", base_qty_g: 100, category: "Dairy/Flour", shelf_life: 5 }
+          ],
+          instructions: ["Sauté juicy tomatoes with ginger, chili, coriander powder, and jaggery.", "Add water, simmer till soft, top with thick sev just before serving.", "Prepare thin sweet-sour buttermilk kadhi thickened with besan.", "Serve hot with thick hand-patted bajra rotlo."]
+        }
+      ],
+      "dinner": [
+        {
+          name: "Gujarati Khichdi, Sweet Guj Kadhi & Roasted Papad",
+          prepTime: "10 mins", cookTime: "20 mins", calories: 440, protein: 15, carbs: 72, fat: 8, calcium: 110, iron: 3.5, vitaminC: 12,
+          tags: ["Light Comfort", "Easy Digestion", "Soothing Night Meal"],
+          ingredients: [
+            { name: "Rice & Green Moong Dal", base_qty_g: 90, category: "Grains & Pulses", shelf_life: 180 },
+            { name: "Buttermilk & Besan", base_qty_g: 120, category: "Dairy/Flour", shelf_life: 5 },
+            { name: "Desi Ghee & Cloves", base_qty_g: 10, category: "Dairy & Spices", shelf_life: 60 },
+            { name: "Urad Dal Papad", base_qty_g: 15, category: "Pantry", shelf_life: 120 }
+          ],
+          instructions: ["Pressure cook equal parts rice and green moong dal with turmeric and salt.", "Simmer buttermilk, besan, ginger paste, cinnamon, cloves, and jaggery for Kadhi.", "Temper ghee with mustard seeds, curry leaves, and red chili.", "Serve soft khichdi with hot kadhi and roasted papad."]
+        },
+        {
+          name: "Ringan No Olo (Smokey Baingan Bharta) & Bajra Roti",
+          prepTime: "15 mins", cookTime: "25 mins", calories: 480, protein: 14, carbs: 76, fat: 12, calcium: 120, iron: 5.1, vitaminC: 28,
+          tags: ["Smokey Flavor", "Kathiyawadi Special", "High Fiber"],
+          ingredients: [
+            { name: "Big Eggplant (Ringan)", base_qty_g: 150, category: "Vegetables", shelf_life: 7 },
+            { name: "Spring Onions & Garlic", base_qty_g: 60, category: "Fresh Produce", shelf_life: 7 },
+            { name: "Bajra Flour", base_qty_g: 80, category: "Grains", shelf_life: 60 },
+            { name: "Oil & Spices", base_qty_g: 10, category: "Oils", shelf_life: 180 }
+          ],
+          instructions: ["Roast eggplant directly over open flame until skin is charred.", "Peel and mash roasted eggplant pulp.", "Sauté abundant garlic, green chilies, spring onions, and tomatoes in oil.", "Fold in roasted pulp, cook 10 mins. Serve with warm bajra roti."]
+        },
+        {
+          name: "Mag Nu Shaak (Whole Green Moong Curry) & Phulka",
+          prepTime: "10 mins", cookTime: "20 mins", calories: 450, protein: 21, carbs: 70, fat: 7, calcium: 95, iron: 4.9, vitaminC: 16,
+          tags: ["Whole Legume", "High Protein", "Wholesome"],
+          ingredients: [
+            { name: "Whole Green Moong", base_qty_g: 70, category: "Pulses", shelf_life: 180 },
+            { name: "Whole Wheat Atta", base_qty_g: 60, category: "Grains", shelf_life: 90 },
+            { name: "Jaggery, Lemon & Spices", base_qty_g: 10, category: "Spices", shelf_life: 90 }
+          ],
+          instructions: ["Boil soaked whole green moong until tender.", "Prepare gravy with oil, mustard seeds, ginger, garlic, chili, and jaggery.", "Add moong, squeeze fresh lemon juice, simmer 10 mins.", "Serve hot with soft phulkas."]
+        }
+      ]
+    }
+  },
+
   // Regional Cuisines Database
   CUISINES: {
     "India": {

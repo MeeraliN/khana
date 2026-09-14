@@ -10,14 +10,14 @@ window.KhanaPlanner = {
    * Main function to generate 30 days of meals (90 total)
    */
   generate30DayPlan: function(preferences) {
-    const { country, state, city, dietType } = preferences;
+    const { country, state, dietType } = preferences;
     const diet = (dietType || "veg").toLowerCase();
     
-    // Select recipe pool based on diet
-    let pool = window.KhanaData.RECIPE_TEMPLATES[diet] || window.KhanaData.RECIPE_TEMPLATES["veg"];
+    // Check for regional recipe pool first
+    let regionalPool = window.KhanaData.REGIONAL_RECIPES?.[state];
+    let pool = regionalPool || window.KhanaData.RECIPE_TEMPLATES[diet] || window.KhanaData.RECIPE_TEMPLATES["veg"];
     
-    // Fallback if diet pool is missing
-    if (!pool.breakfast || pool.breakfast.length === 0) {
+    if (!pool || !pool.breakfast || pool.breakfast.length === 0) {
       pool = window.KhanaData.RECIPE_TEMPLATES["veg"];
     }
 
@@ -31,13 +31,6 @@ window.KhanaPlanner = {
       let breakfast = JSON.parse(JSON.stringify(pool.breakfast[bIndex]));
       let lunch = JSON.parse(JSON.stringify(pool.lunch[lIndex]));
       let dinner = JSON.parse(JSON.stringify(pool.dinner[dIndex]));
-
-      // Customize meal names according to state/city context if applicable
-      if (state && country === "India") {
-        breakfast.name = this.adaptMealToRegion(breakfast.name, state, "breakfast", day);
-        lunch.name = this.adaptMealToRegion(lunch.name, state, "lunch", day);
-        dinner.name = this.adaptMealToRegion(dinner.name, state, "dinner", day);
-      }
 
       // Enforce strict diet check
       breakfast = this.sanitizeMealForDiet(breakfast, diet);

@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const state = {
     preferences: {
       country: "India",
-      state: "Maharashtra",
-      city: "Mumbai",
+      state: "Gujarat",
       dietType: "veg", // "veg", "non-veg", "vegan"
       marketingFrequency: "weekly", // "daily", "twice_weekly", "weekly", "biweekly"
       familyMembers: [
@@ -143,8 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function readFormValues() {
     state.preferences.country = countrySelect?.value || "India";
-    state.preferences.state = stateSelect?.value || "Maharashtra";
-    state.preferences.city = cityInput?.value || "Mumbai";
+    state.preferences.state = stateSelect?.value || "Gujarat";
     state.preferences.dietType = dietSelect?.value || "veg";
     state.preferences.marketingFrequency = freqSelect?.value || "weekly";
   }
@@ -153,11 +151,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!stateSelect) return;
     stateSelect.innerHTML = "";
     if (country === "India") {
-      const states = ["Maharashtra", "Punjab", "South India", "Gujarat", "Bengal", "General"];
+      const states = ["Gujarat", "Maharashtra", "Punjab", "South India", "Bengal", "General"];
       states.forEach(s => {
         const opt = document.createElement("option");
         opt.value = s;
         opt.textContent = s;
+        if (s === "Gujarat") opt.selected = true;
         stateSelect.appendChild(opt);
       });
     } else {

@@ -480,23 +480,27 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderGroceryList() {
     if (!groceryContainer) return;
 
-    const startDay = state.groceryStartDay || state.selectedDay || 1;
+    const todayDay = state.todayDay || 1;
+    const startDay = state.groceryStartDay || todayDay;
     const daysCount = state.groceryDaysCount || 7;
 
     const data = window.KhanaGrocery.generateGroceryList(
       state.mealPlan,
       state.preferences.familyMembers,
       state.preferences.marketingFrequency,
-      { startDay: startDay, customDaysCount: daysCount }
+      { startDay: startDay, customDaysCount: daysCount, todayDay: todayDay }
     );
 
-    // Build Start Day select options
+    // Build Start Day select options relative to Today (Day N)
     let startDayOpts = "";
     for (let d = 1; d <= 30; d++) {
-      const isToday = d === state.todayDay;
-      const label = `Day ${d}${isToday ? ' (Today)' : ''}`;
-      startDayOpts += `<option value="${d}" ${d === startDay ? 'selected' : ''}>${label}</option>`;
+      let tag = `Day ${d}`;
+      if (d === todayDay) tag = `Day ${d} (Today)`;
+      else if (d === ((todayDay % 30) + 1)) tag = `Day ${d} (Tomorrow)`;
+      startDayOpts += `<option value="${d}" ${d === startDay ? 'selected' : ''}>${tag}</option>`;
     }
+
+    const tomorrowDay = (todayDay % 30) + 1;
 
     let html = `
       <!-- Scope & Custom Days Control Bar -->
@@ -508,7 +512,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="flex flex-wrap items-center gap-3 text-xs">
             <!-- Start Day Selector -->
             <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
-              <label class="font-bold text-slate-500">Start Day:</label>
+              <label class="font-bold text-slate-500">Start Shopping Day:</label>
               <select id="grocery-start-day" class="font-bold text-amber-600 dark:text-amber-400 bg-transparent focus:outline-none cursor-pointer">
                 ${startDayOpts}
               </select>
@@ -519,8 +523,8 @@ document.addEventListener("DOMContentLoaded", function () {
               <label class="font-bold text-slate-500">Shopping For:</label>
               <select id="grocery-days-count" class="font-bold text-amber-600 dark:text-amber-400 bg-transparent focus:outline-none cursor-pointer">
                 <option value="1" ${daysCount === 1 ? 'selected' : ''}>1 Day Only</option>
-                <option value="2" ${daysCount === 2 ? 'selected' : ''}>2 Days (Start Day + 1 Day)</option>
-                <option value="3" ${daysCount === 3 ? 'selected' : ''}>3 Days (Start Day + 2 Days)</option>
+                <option value="2" ${daysCount === 2 ? 'selected' : ''}>2 Days (Next 2 Days)</option>
+                <option value="3" ${daysCount === 3 ? 'selected' : ''}>3 Days (Next 3 Days)</option>
                 <option value="7" ${daysCount === 7 ? 'selected' : ''}>1 Week (7 Days)</option>
                 <option value="14" ${daysCount === 14 ? 'selected' : ''}>2 Weeks (14 Days)</option>
                 <option value="30" ${daysCount === 30 ? 'selected' : ''}>Full 30 Days Total</option>
@@ -529,20 +533,20 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         </div>
 
-        <!-- Quick Presets Bar -->
+        <!-- Quick Presets Bar with Dynamic Day N / Tomorrow N+1 formulas -->
         <div class="flex flex-wrap items-center gap-2 text-xs">
-          <span class="text-slate-500 font-bold">Quick Presets:</span>
-          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${state.todayDay}" data-days="1">
-            ☀️ Today (Day ${state.todayDay})
+          <span class="text-slate-500 font-bold">Quick Market Presets:</span>
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${todayDay}" data-days="1">
+            ☀️ Shop Today (Day ${todayDay})
           </button>
-          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${(state.todayDay % 30) + 1}" data-days="1">
-            🌅 Tomorrow (Day ${(state.todayDay % 30) + 1})
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${tomorrowDay}" data-days="1">
+            🌅 Shop Tomorrow (Day ${tomorrowDay})
           </button>
-          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${(state.todayDay % 30) + 1}" data-days="3">
-            🗓️ Tomorrow + 2 More Days (3 Days)
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${tomorrowDay}" data-days="3">
+            🗓️ Shop Tomorrow + Next 2 Days (Day ${tomorrowDay} to ${Math.min(30, tomorrowDay + 2)})
           </button>
-          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${state.todayDay}" data-days="7">
-            🛒 Full Week (7 Days)
+          <button class="btn-preset px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold hover:bg-amber-500 hover:text-white transition cursor-pointer" data-start="${tomorrowDay}" data-days="7">
+            🛒 Shop Next Week (Day ${tomorrowDay} to ${Math.min(30, tomorrowDay + 6)})
           </button>
         </div>
       </div>

@@ -101,7 +101,8 @@ window.KhanaGrocery = {
       ? familyMembers.reduce((sum, member) => sum + (parseFloat(member.portion_factor) || 1.0), 0)
       : 1.0;
 
-    const startDay = Math.max(1, Math.min(30, parseInt(options.startDay) || 1));
+    const todayDay = parseInt(options.todayDay) || 1;
+    const startDay = Math.max(1, Math.min(30, parseInt(options.startDay) || todayDay));
     const customDays = parseInt(options.customDaysCount);
 
     let daysToCover = 7;
@@ -120,8 +121,10 @@ window.KhanaGrocery = {
     let frequencyLabel = "";
 
     if (daysToCover === 1) {
-      const dayName = startDay === 1 ? "Today (Day 1)" : startDay === 2 ? "Tomorrow (Day 2)" : `Day ${startDay}`;
-      frequencyLabel = `1 Day Market List for ${dayName}`;
+      let dayRel = `Day ${startDay}`;
+      if (startDay === todayDay) dayRel = `Today (Day ${startDay})`;
+      else if (startDay === ((todayDay % 30) + 1)) dayRel = `Tomorrow (Day ${startDay})`;
+      frequencyLabel = `1 Day Shopping List for ${dayRel}`;
     } else {
       frequencyLabel = `Market List for ${daysToCover} Days (Day ${startDay} to Day ${endDay})`;
     }

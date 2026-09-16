@@ -320,6 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
     state.mealPlan = window.KhanaPlanner.generate30DayPlan(state.preferences);
     render30DaySelector();
     renderDayMeals(state.selectedDay);
+    renderGroceryList();
     updateSettingsSummaryBar();
   }
 

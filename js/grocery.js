@@ -104,6 +104,7 @@ window.KhanaGrocery = {
     const todayDay = parseInt(options.todayDay) || 1;
     const startDay = Math.max(1, Math.min(30, parseInt(options.startDay) || todayDay));
     const customDays = parseInt(options.customDaysCount);
+    const scope = options.scope || "custom";
 
     let daysToCover = 7;
     if (!isNaN(customDays) && customDays > 0) {

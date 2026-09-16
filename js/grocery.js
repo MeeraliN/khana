@@ -10,7 +10,8 @@ window.KhanaGrocery = {
    * Smart normalization mapping to merge redundant ingredient names and standard categories
    */
   normalizeItem: function(rawName, rawCategory) {
-    const n = rawName.trim().toLowerCase();
+    const nameStr = (typeof rawName === 'string' ? rawName : (rawName && rawName.name ? rawName.name : String(rawName || ''))).trim();
+    const n = nameStr.toLowerCase();
 
     // Grains, Flours & Pulses
     if (n.includes("wheat") || n.includes("atta") || n.includes("puri") || n.includes("roti") || n.includes("phulka") || n.includes("dhokli")) {
@@ -142,15 +143,17 @@ window.KhanaGrocery = {
         if (!meal || !meal.ingredients) return;
 
         meal.ingredients.forEach(ing => {
-          const norm = this.normalizeItem(ing.name, ing.category);
-          const key = norm.name;
-          const baseQtyG = ing.base_qty_g || 50;
+          if (!ing) return;
+          const ingName = typeof ing === 'string' ? ing : (ing.name || '');
+          const norm = this.normalizeItem(ingName, (typeof ing === 'object' && ing.category) ? ing.category : '');
+          const key = norm.name || "Pantry Item";
+          const baseQtyG = (typeof ing === 'object' && ing.base_qty_g) ? ing.base_qty_g : 50;
           const totalGrams = baseQtyG * totalPortions;
 
           if (!rawAggregated[key]) {
             rawAggregated[key] = {
-              name: norm.name,
-              category: norm.category,
+              name: key,
+              category: norm.category || "🌶️ Spices, Seeds & Pantry Staples",
               totalGrams: 0
             };
           }

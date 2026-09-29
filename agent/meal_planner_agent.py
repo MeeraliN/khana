@@ -1,6 +1,6 @@
 """
-Khana AI - AWS Strands Agent SDK Meal & Grocery Planning Agent
-Built for AWS Agents for Humans Hackathon using Strands Agents SDK & Amazon Bedrock.
+Khana AI - Strands Agent SDK Meal & Grocery Planning Agent
+Zero-Waste Regional Meal & Grocery Planner for Mobile & Web.
 """
 
 import os
@@ -9,9 +9,12 @@ import requests
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 
-import boto3
+try:
+    import boto3
+except ImportError:
+    boto3 = None
 
-# Import AWS Strands Agents SDK
+# Import Strands Agents SDK
 try:
     from strands_agents import Agent, tool
 except ImportError:
@@ -174,9 +177,15 @@ class KhanaMealAgent:
     
     def __init__(self, prefs: UserPreferences):
         self.prefs = prefs
-        self.bedrock_client = boto3.client("bedrock-runtime", region_name=AWS_REGION)
+        if boto3:
+            try:
+                self.bedrock_client = boto3.client("bedrock-runtime", region_name=AWS_REGION)
+            except Exception:
+                self.bedrock_client = None
+        else:
+            self.bedrock_client = None
         
-        # Initialize Strands Agent with AWS Tools
+        # Initialize Strands Agent
         self.agent = Agent(
             name="KhanaMealPlannerAgent",
             tools=[
@@ -186,7 +195,7 @@ class KhanaMealAgent:
             ],
             model="us.amazon.nova-pro-v1:0",  # AWS Bedrock Foundation Model
             system_prompt=(
-                "You are Khana AI, an AWS Strands Agent SDK assistant. "
+                "You are Khana AI, a smart regional meal and grocery planning assistant. "
                 "You generate 30-day (90 meal) regional meal plans, scale ingredient quantities "
                 "in exact grams (gm) and kilograms (kg) for households, and enforce strict "
                 "dietary choices (Veg, Vegan, Non-Veg) with zero waste."
@@ -204,7 +213,7 @@ class KhanaMealAgent:
         
         return {
             "status": "success",
-            "agent_framework": "AWS Strands Agents SDK (strands-agents)",
+            "agent_framework": "Strands Agents SDK (strands-agents)",
             "llm_engine": "Amazon Bedrock (Amazon Nova / Claude 3.5 Sonnet)",
             "user_location": f"{self.prefs.city}, {self.prefs.state}, {self.prefs.country}",
             "diet_type": self.prefs.diet_type.upper(),
